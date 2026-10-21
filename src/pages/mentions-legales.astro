@@ -1,0 +1,51 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+---
+
+<Base title={`Mentions légales · ${site.name}`} description="Mentions légales du book de Lena Pedelahore.">
+  <Nav />
+  <main id="contenu" class="section container">
+    <h1 class="section-title" style="margin-bottom: 32px;">Mentions légales</h1>
+
+    <div style="max-width: 70ch; display: flex; flex-direction: column; gap: 24px;">
+      <p style="color: var(--muted); font-style: italic;">
+        Modèle à relire et valider par Lena avant la mise en ligne.
+      </p>
+
+      <section>
+        <h2 style="font-size: 20px; margin-bottom: 8px;">Éditeur du site</h2>
+        <p>
+          Ce site est édité par {site.name}, à titre personnel.
+          Contact : <a href={`mailto:${site.email}`} style="color: var(--magenta); font-weight: 700;">{site.email}</a>.
+        </p>
+      </section>
+
+      <section>
+        <h2 style="font-size: 20px; margin-bottom: 8px;">Hébergement</h2>
+        <p>[à compléter selon le choix de l'hébergement : nom et adresse de l'hébergeur]</p>
+      </section>
+
+      <section>
+        <h2 style="font-size: 20px; margin-bottom: 8px;">Propriété intellectuelle</h2>
+        <p>
+          L'ensemble des contenus de ce site (textes, visuels, mise en page) est la propriété
+          de {site.name}, sauf mention contraire. Toute reproduction sans autorisation est interdite.
+        </p>
+      </section>
+
+      <section>
+        <h2 style="font-size: 20px; margin-bottom: 8px;">Données personnelles</h2>
+        <p>
+          Ce site n'utilise aucun cookie ni outil de suivi. Aucune donnée personnelle n'est
+          collectée via un formulaire : le contact se fait par email ou par LinkedIn, à l'initiative
+          du visiteur.
+        </p>
+      </section>
+    </div>
+  </main>
+  <Footer />
+  <script src="../scripts/site.ts"></script>
+</Base>

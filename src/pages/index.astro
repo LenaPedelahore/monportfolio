@@ -1,0 +1,30 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/Hero.astro";
+import Marquee from "../components/Marquee.astro";
+import Profil from "../components/Profil.astro";
+import Projets from "../components/Projets.astro";
+import Competences from "../components/Competences.astro";
+import Parcours from "../components/Parcours.astro";
+import Contact from "../components/Contact.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+
+const pageTitle = site.titleTag;
+---
+
+<Base title={pageTitle} isHome>
+  <Nav />
+  <main id="contenu">
+    <Hero />
+    <Marquee />
+    <Profil />
+    <Projets />
+    <Competences />
+    <Parcours />
+    <Contact />
+  </main>
+  <Footer />
+  <script src="../scripts/site.ts"></script>
+</Base>

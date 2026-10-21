@@ -1,0 +1,42 @@
+---
+// Section Projets. Les filtres sont gérés par
+// src/scripts/site.ts (fonction setupFilters), sans rechargement de page.
+import { projectsSection } from "../data/site";
+import { getVisibleProjects } from "../lib/projects";
+import ProjectCard from "./ProjectCard.astro";
+
+const projects = await getVisibleProjects();
+---
+
+<section id="projets" class="section reveal">
+  <div class="container">
+    <p class="eyebrow">
+      <span class="badge-number">02</span>
+      <span class="badge-label">Projets</span>
+    </p>
+    <h2 class="section-title">{projectsSection.title}</h2>
+
+    <div class="filter-row" role="group" aria-label="Filtrer les projets par catégorie">
+      {projectsSection.filters.map((filter, i) => (
+        <button
+          type="button"
+          class="filter-pill"
+          data-filter={filter.value}
+          aria-pressed={i === 0 ? "true" : "false"}
+        >
+          {filter.label}
+        </button>
+      ))}
+    </div>
+
+    {
+      projects.length > 0 ? (
+        <div class="project-grid">
+          {projects.map((project) => <ProjectCard project={project} />)}
+        </div>
+      ) : (
+        <p>Les premières études de cas arrivent bientôt.</p>
+      )
+    }
+  </div>
+</section>

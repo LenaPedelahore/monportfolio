@@ -1,0 +1,44 @@
+---
+// Section Profil.
+import { profile } from "../data/site";
+---
+
+<section id="profil" class="section reveal">
+  <div class="container">
+    <p class="eyebrow">
+      <span class="badge-number">01</span>
+      <span class="badge-label">Profil</span>
+    </p>
+
+    <div class="profile-grid">
+      <div class="profile-photo-wrap">
+        <div class="profile-photo-ring">
+          <div class="profile-photo-inner">
+            <img src={profile.photo} alt="Portrait de Lena Pedelahore" />
+          </div>
+        </div>
+        <span class="profile-dot" aria-hidden="true"></span>
+        <span class="profile-ring" aria-hidden="true"></span>
+      </div>
+
+      <div>
+        <h2 class="section-title">
+          {profile.titleBefore}<span class="marker">{profile.titleHighlight}</span>
+        </h2>
+
+        <div class="profile-text" style="margin-top: 20px;">
+          {profile.paragraphs.map((p) => <p>{p}</p>)}
+        </div>
+
+        <div class="profile-cards">
+          {profile.cards.map((card) => (
+            <div class="info-card">
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

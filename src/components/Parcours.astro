@@ -1,0 +1,39 @@
+---
+// Section Parcours.
+import { parcours, enCeMoment } from "../data/site";
+---
+
+<section id="parcours" class="section reveal">
+  <div class="container">
+    <p class="eyebrow">
+      <span class="badge-number">04</span>
+      <span class="badge-label">Parcours</span>
+    </p>
+    <h2 class="section-title">Mon virage vers la data.</h2>
+
+    <div class="timeline" style="margin-top: 32px;">
+      {parcours.map((step, i) => (
+        <>
+          <div class:list={["timeline-item", { "is-current": step.current }]}>
+            <span class="timeline-label">{step.label}</span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+            {i < parcours.length - 1 && (
+              <span class="timeline-arrow" aria-hidden="true">→</span>
+            )}
+          </div>
+          {i < parcours.length - 1 && (
+            <span class="timeline-arrow-mobile" aria-hidden="true">↓</span>
+          )}
+        </>
+      ))}
+    </div>
+
+    <div class="now-banner">
+      <span class="now-banner-label">En ce moment</span>
+      <ul>
+        {enCeMoment.map((item) => <li class="tag">{item}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>

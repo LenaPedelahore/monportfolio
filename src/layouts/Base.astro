@@ -1,0 +1,66 @@
+---
+// Mise en page commune à toutes les pages du site : balises SEO, polices,
+// styles globaux, lien d'accessibilité "Aller au contenu".
+import "@fontsource/bricolage-grotesque/500.css";
+import "@fontsource/bricolage-grotesque/700.css";
+import "@fontsource/bricolage-grotesque/800.css";
+import "@fontsource/dm-sans/400.css";
+import "@fontsource/dm-sans/500.css";
+import "@fontsource/dm-sans/700.css";
+import "../styles/tokens.css";
+import "../styles/base.css";
+import "../styles/components.css";
+import { site } from "../data/site";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Affiche les données structurées "Person", réservé à la page d'accueil */
+  isHome?: boolean;
+}
+
+const { title, description = site.description, isHome = false } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://example.com");
+const ogImage = new URL("/og-image.svg", Astro.site ?? "https://example.com");
+---
+
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonicalUrl} />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="fr_FR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    {
+      isHome && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Person",
+            name: site.name,
+            jobTitle: site.role,
+            url: canonicalUrl,
+            sameAs: [site.linkedin],
+          })}
+        />
+      )
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#contenu">Aller au contenu</a>
+    <slot />
+  </body>
+</html>

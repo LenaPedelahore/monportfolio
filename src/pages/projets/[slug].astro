@@ -1,0 +1,121 @@
+---
+// Page étude de cas, générée automatiquement pour chaque
+// projet publié. Une page = un fichier Markdown dans src/content/projects/.
+import Base from "../../layouts/Base.astro";
+import Nav from "../../components/Nav.astro";
+import Footer from "../../components/Footer.astro";
+import { site } from "../../data/site";
+import { getVisibleProjects } from "../../lib/projects";
+
+export async function getStaticPaths() {
+  const projects = await getVisibleProjects();
+  return projects.map((project, i) => ({
+    params: { slug: project.id },
+    props: {
+      project,
+      next: projects[(i + 1) % projects.length],
+    },
+  }));
+}
+
+const { project, next } = Astro.props;
+const { data } = project;
+
+const categoryLabel: Record<typeof data.category, string> = {
+  pro: "Pro",
+  ecole: "École",
+  perso: "Perso",
+};
+
+const [bigImage, smallImage] = data.images;
+---
+
+<Base title={`${data.title} · ${site.name}`} description={data.summary}>
+  <Nav />
+  <main id="contenu" class="container">
+    <div class="case-header">
+      <a class="case-back" href="/#projets">← Tous les projets</a>
+
+      <div class="case-pills">
+        <span class="pill-category">Étude de cas · {categoryLabel[data.category]}</span>
+        {data.fictional && <span class="pill-category pill-fictif">Projet fictif</span>}
+        {data.group && <span class="pill-category pill-groupe">Projet de groupe</span>}
+      </div>
+
+      <h1 class="case-title">{data.title}</h1>
+      <p class="case-summary">{data.summary}</p>
+    </div>
+
+    <div class="case-info-grid">
+      <div class="case-info-card">
+        <h3>Cadre</h3>
+        <p>{data.context}</p>
+      </div>
+      <div class="case-info-card">
+        <h3>Mon rôle</h3>
+        <p>{data.role}</p>
+      </div>
+      <div class="case-info-card">
+        <h3>Période</h3>
+        <p>{data.period}</p>
+      </div>
+      <div class="case-info-card">
+        <h3>Outils</h3>
+        <p>{data.tools.join(" · ")}</p>
+      </div>
+    </div>
+
+    <div class="case-columns">
+      <div class="case-column">
+        <h2>1 · Le problème</h2>
+        <p>{data.probleme}</p>
+      </div>
+      <div class="case-column is-demarche">
+        <h2>2 · Ma démarche</h2>
+        <ol>
+          {data.demarche.map((step) => <li>{step}</li>)}
+        </ol>
+      </div>
+      <div class="case-column is-resultat">
+        <h2>3 · Le résultat</h2>
+        <p>{data.resultat}</p>
+      </div>
+    </div>
+
+    <h2 style="font-size: 20px; color: var(--magenta); margin-bottom: 16px;">Preuves</h2>
+    <div class="case-proof-grid">
+      <div class="case-proof-box">
+        {bigImage ? <img src={bigImage.src} alt={bigImage.alt} /> : "Capture à ajouter"}
+      </div>
+      <div class="case-proof-box">
+        {smallImage ? <img src={smallImage.src} alt={smallImage.alt} /> : "Capture à ajouter"}
+      </div>
+    </div>
+    {
+      data.category === "pro" && (
+        <p class="case-proof-note" style="margin-top: -28px; margin-bottom: 48px;">
+          Données anonymisées : captures floutées ou remplacées par des données fictives.
+        </p>
+      )
+    }
+
+    <div class="case-learned">
+      <h2>Ce que j'ai appris</h2>
+      <p>{data.appris}</p>
+    </div>
+
+    <div class="case-footer-nav">
+      <a href="/#projets">← Tous les projets</a>
+      <a href={`/projets/${next.id}/`}>Projet suivant : {next.data.title} →</a>
+    </div>
+
+    <div class="contact-block" style="margin-bottom: 56px;">
+      <h2 class="contact-title" style="font-size: 36px;">Un besoin similaire ? Parlons data.</h2>
+      <div class="contact-actions">
+        <a class="btn btn-on-color" href="/#contact">Me contacter</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+  <script src="../../scripts/site.ts"></script>
+</Base>

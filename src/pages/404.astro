@@ -1,0 +1,16 @@
+---
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+---
+
+<Base title={`Page non trouvée · ${site.name}`}>
+  <Nav />
+  <main id="contenu" class="container error-page">
+    <h1>Cette page n'existe pas</h1>
+    <p style="color: var(--muted);">Le lien a peut-être changé ou contient une erreur.</p>
+    <a class="btn btn-primary" href="/">Retour à l'accueil</a>
+  </main>
+  <Footer />
+</Base>

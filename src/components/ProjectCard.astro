@@ -1,0 +1,38 @@
+---
+// Carte projet, réutilisée sur l'accueil et pourra l'être ailleurs.
+import { colorTokens } from "../data/site";
+import type { ProjectEntry } from "../lib/projects";
+
+interface Props {
+  project: ProjectEntry;
+}
+
+const { project } = Astro.props;
+const { title, category, summary, tags, color } = project.data;
+
+const categoryLabel: Record<typeof category, string> = {
+  pro: "Pro",
+  ecole: "École",
+  perso: "Perso",
+};
+
+// Hauteurs décoratives des six barres, sans lien avec de vraies données.
+const barHeights = [55, 85, 45, 95, 65, 75];
+---
+
+<article class="project-card" data-category={category}>
+  <div class="project-card-cover" style={`--card-color: ${colorTokens[color]}`}>
+    <span class="pill-category">{categoryLabel[category]}</span>
+    {barHeights.map((h) => <span class="bar" style={`height: ${h}%`}></span>)}
+  </div>
+  <div class="project-card-body">
+    <h3>{title}</h3>
+    <p>{summary}</p>
+    <div class="project-card-tags">
+      {tags.map((tag) => <span class="tag">{tag}</span>)}
+    </div>
+    <a class="project-card-link" href={`/projets/${project.id}/`}>
+      Lire l'étude de cas →
+    </a>
+  </div>
+</article>

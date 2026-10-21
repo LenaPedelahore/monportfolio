@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://book-lena.pages.dev/sitemap-index.xml

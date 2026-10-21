@@ -1,0 +1,24 @@
+---
+// Section Compétences.
+import { colorTokens, skills } from "../data/site";
+---
+
+<section id="stack" class="section reveal">
+  <div class="container">
+    <p class="eyebrow">
+      <span class="badge-number">03</span>
+      <span class="badge-label">Compétences</span>
+    </p>
+    <h2 class="section-title">Mes quatre leviers.</h2>
+
+    <div class="skills-grid" style="margin-top: 32px;">
+      {skills.map((skill) => (
+        <div class="skill-card" style={`--skill-color: ${colorTokens[skill.color]}`}>
+          <h3>{skill.name}</h3>
+          <p>{skill.phrase}</p>
+          <p class="tools">{skill.tools}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

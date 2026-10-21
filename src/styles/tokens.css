@@ -1,0 +1,79 @@
+/*
+  Design system de Lena : toutes les couleurs, polices, tailles et formes du site.
+  Ce fichier est la SEULE source de vérité pour l'identité visuelle.
+  Pour changer une couleur ou une taille partout sur le site, on modifie une valeur ici,
+  jamais dans les composants.
+*/
+
+:root {
+  /* Couleurs de fond et de texte */
+  --bg: #FFF8F2;
+  --ink: #1E1626;
+  --muted: #5B4D63;
+  --body: #3E3247;
+  --line: #F0DDD0;
+  --peach: #FDEBDD;
+  --peach-line: #F3CDBE;
+  --card: #FFFFFF;
+
+  /* Palette de couleurs vives */
+  --orange: #F59A55;
+  --pink: #D7449A;
+  --violet: #8E5BD0;
+  --yellow: #F8E39B;
+  --rose: #F2799F;
+  --gold: #F2B63D;
+  --magenta: #B52F7E;
+
+  /* Cercles décoratifs */
+  --blob-peach: #FBD9CC;
+  --blob-pink: #F9D3E6;
+
+  /* Dégradés */
+  --gradient-title: linear-gradient(90deg, #DE6A1F 0%, #D7449A 60%, #8E5BD0 100%);
+  --gradient-card: linear-gradient(135deg, #F8B27A 0%, #F58BB0 100%);
+  --gradient-contact: linear-gradient(120deg, #F8B27A 0%, #F58BB0 55%, #C9A0F0 100%);
+  --gradient-photo: linear-gradient(135deg, #F59A55 0%, #D7449A 55%, #8E5BD0 100%);
+  --gradient-highlight: linear-gradient(180deg, transparent 0%, transparent 58%, var(--orange) 58%, var(--orange) 90%, transparent 90%);
+
+  /* Typographie */
+  --font-title: "Bricolage Grotesque", system-ui, sans-serif;
+  --font-body: "DM Sans", system-ui, sans-serif;
+
+  --fs-hero: 78px;
+  --fs-hero-mobile: 50px;
+  --fs-section: 49px;
+  --fs-section-mobile: 34px;
+  --fs-card-title: 24px;
+  --fs-card-title-mobile: 21px;
+  --fs-body: 17px;
+  --fs-body-mobile: 16px;
+  --fs-lead: 20px;
+  --fs-lead-mobile: 17px;
+  --fs-button: 15px;
+  --fs-button-mobile: 14px;
+
+  /* Formes */
+  --radius-pill: 999px;
+  --radius-card: 26px;
+  --radius-block: 34px;
+
+  /* Espacement */
+  --content-max: 1200px;
+  --gutter: 40px;
+  --gutter-mobile: 20px;
+  --section-gap: 96px;
+  --section-gap-mobile: 56px;
+
+  /* Ombres */
+  --shadow-float: 0 30px 70px rgba(120, 60, 60, 0.14);
+
+  /* Durées d'animation */
+  --dur-word: 2.2s;
+  --dur-pulse: 1.6s;
+  --dur-float: 7s;
+  --dur-marquee: 28s;
+  --dur-reveal: 0.5s;
+  --dur-filter: 0.2s;
+  --dur-hover: 0.2s;
+}

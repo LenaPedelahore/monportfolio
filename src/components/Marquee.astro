@@ -1,0 +1,13 @@
+---
+// Bandeau d'outils qui défile en boucle. La liste est dupliquée
+// une fois pour que la boucle soit continue, sans saut visible.
+import { marqueeTools } from "../data/site";
+
+const items = [...marqueeTools, ...marqueeTools];
+---
+
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track">
+    {items.map((tool) => <span class="marquee-item">{tool}</span>)}
+  </div>
+</div>

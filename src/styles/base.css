@@ -1,0 +1,238 @@
+/*
+  Styles de base : réinitialisation, typographie générale, mise en page commune.
+  Les styles propres à un composant précis vont dans components.css.
+*/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--body);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-title);
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* Un seul conteneur centré, réutilisé partout : largeur max 1200px */
+.container {
+  width: 100%;
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding-inline: var(--gutter-mobile);
+  }
+}
+
+/* Chaque grande section de l'accueil utilise cette classe pour garder un espacement régulier */
+.section {
+  padding-block: var(--section-gap);
+  scroll-margin-top: 100px;
+}
+
+@media (max-width: 640px) {
+  .section {
+    padding-block: var(--section-gap-mobile);
+  }
+}
+
+/* Lien "Aller au contenu", visible seulement au focus clavier (accessibilité) */
+.skip-link {
+  position: absolute;
+  top: -48px;
+  left: 16px;
+  z-index: 1000;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Contour de focus visible partout au clavier */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--violet);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Étiquette de section : pastille noire "01" + nom de la section */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.eyebrow .badge-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: var(--bg);
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.eyebrow .badge-label {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.section-title {
+  font-size: var(--fs-section);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+}
+
+@media (max-width: 640px) {
+  .section-title {
+    font-size: var(--fs-section-mobile);
+  }
+}
+
+/* Surlignage façon marqueur */
+.marker {
+  position: relative;
+  display: inline;
+}
+
+.marker::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-highlight);
+  z-index: -1;
+}
+
+/* Cercles décoratifs flous en haut de page */
+.blobs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.blobs::before,
+.blobs::after {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.6;
+}
+
+.blobs::before {
+  top: -120px;
+  left: -120px;
+  background: var(--blob-peach);
+}
+
+.blobs::after {
+  top: -80px;
+  right: -140px;
+  background: var(--blob-pink);
+}
+
+/* Texte réservé aux lecteurs d'écran, invisible à l'écran */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Les animations en boucle se mettent en pause quand l'onglet n'est pas visible */
+body.tab-hidden .marquee-track,
+body.tab-hidden .hero-card,
+body.tab-hidden .pulse-dot::after {
+  animation-play-state: paused;
+}
+
+/* Respecte la préférence système "réduire les animations" */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,157 @@
+---
+// Page CV, alimentée uniquement par src/data/cv.ts.
+import Base from "../layouts/Base.astro";
+import Nav from "../components/Nav.astro";
+import Footer from "../components/Footer.astro";
+import { site, colorTokens } from "../data/site";
+import {
+  cvIdentity,
+  cvSkills,
+  cvLearning,
+  cvExperiences,
+  cvFormations,
+  cvCertification,
+  cvLanguages,
+  cvInterests,
+  cvPublications,
+} from "../data/cv";
+---
+
+<Base title={`CV · ${site.name}`} description={cvIdentity.title}>
+  <Nav />
+  <main id="contenu" class="section container">
+    <div class="cv-header">
+      <div class="cv-photo">
+        <img src={cvIdentity.photo} alt={`Portrait de ${cvIdentity.name}`} />
+      </div>
+      <div>
+        <h1 style="font-size: 36px;">{cvIdentity.name}</h1>
+        <p style="color: var(--muted); font-size: 18px; margin-top: 6px;">{cvIdentity.title}</p>
+        <div class="cv-meta">
+          <span>{cvIdentity.location}</span>
+          <span>·</span>
+          <a href={cvIdentity.linkedin} target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <span>·</span>
+          <a href={`mailto:${cvIdentity.email}`}>{cvIdentity.email}</a>
+        </div>
+        <p class="tag" style="margin-top: 14px; display: inline-flex;">{cvIdentity.availability}</p>
+        <div style="margin-top: 18px;">
+          <a class="btn btn-primary" href={site.cvFile} download>Télécharger le PDF</a>
+        </div>
+      </div>
+    </div>
+
+    <div style="max-width: 70ch; margin-bottom: 56px; display: flex; flex-direction: column; gap: 14px;">
+      {cvIdentity.intro.map((p) => <p style="font-size: 18px;">{p}</p>)}
+    </div>
+
+    <div class="cv-block">
+      <h2 class="cv-block-title">01 · Compétences</h2>
+      <div class="cv-skills-grid">
+        {cvSkills.map((skill) => (
+          <div class="skill-card" style={`--skill-color: ${colorTokens[skill.color]}`}>
+            <h3>{skill.name}</h3>
+            <div class="project-card-tags" style="margin-bottom: 10px;">
+              {skill.tools.map((tool) => <span class="tag">{tool}</span>)}
+            </div>
+            <ul style="display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--muted); margin-bottom: 8px;">
+              {skill.points.map((point) => <li>{point}</li>)}
+            </ul>
+            {skill.level && <p class="tools" style="font-size: 13px;">{skill.level}</p>}
+          </div>
+        ))}
+      </div>
+
+      <div class="cv-learning">
+        <h3 style="font-size: 16px; margin-bottom: 10px;">En train d'apprendre</h3>
+        <div class="project-card-tags">
+          {cvLearning.map((item) => <span class="tag">{item}</span>)}
+        </div>
+      </div>
+    </div>
+
+    <div class="cv-block">
+      <h2 class="cv-block-title">02 · Expériences</h2>
+      {cvExperiences.map((exp) => (
+        <div class="cv-experience">
+          <h3>{exp.role} · {exp.company}</h3>
+          <p class="cv-experience-meta">
+            {exp.sector !== "[à compléter]" && `${exp.sector} · `}
+            {exp.location !== "[à compléter]" && `${exp.location} · `}
+            {exp.start} à {exp.end}
+            {exp.unconfirmed && " (dates à confirmer)"}
+          </p>
+          {exp.context && <p style="margin-bottom: 10px; color: var(--body);">{exp.context}</p>}
+          {exp.missions && exp.missions.length > 0 && (
+            <ul>
+              {exp.missions.map((m) => <li>{m}</li>)}
+            </ul>
+          )}
+          {exp.achievements && exp.achievements.length > 0 && (
+            <ul>
+              {exp.achievements.map((a) => <li>{a}</li>)}
+            </ul>
+          )}
+          {exp.tools && exp.tools.length > 0 && (
+            <div class="project-card-tags">
+              {exp.tools.map((t) => <span class="tag">{t}</span>)}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <div class="cv-block">
+      <h2 class="cv-block-title">03 · Formations</h2>
+      {cvFormations.map((f) => (
+        <div class="cv-experience">
+          <h3>{f.degree}</h3>
+          <p class="cv-experience-meta">{f.school} · {f.period}</p>
+          {f.content && f.content.length > 0 && (
+            <ul>
+              {f.content.map((c) => <li>{c}</li>)}
+            </ul>
+          )}
+          {f.note && <p style="color: var(--muted); font-size: 14px;">{f.note}</p>}
+        </div>
+      ))}
+      <div class="info-card" style="margin-top: 8px;">
+        <h3>Certification en cours</h3>
+        <p>{cvCertification.name} · {cvCertification.status} · fin {cvCertification.endDate}</p>
+      </div>
+    </div>
+
+    <div class="cv-block">
+      <h2 class="cv-block-title">04 · En plus</h2>
+
+      <div class="cv-skills-grid">
+        <div class="info-card">
+          <h3>Langues</h3>
+          <ul style="display: flex; flex-direction: column; gap: 6px; margin-top: 10px; font-size: 15px; color: var(--muted);">
+            {cvLanguages.map((lang) => <li><strong style="color: var(--ink);">{lang.name}</strong> : {lang.level}</li>)}
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>Centres d'intérêt</h3>
+          <p>{cvInterests.join(", ")}</p>
+        </div>
+      </div>
+
+      {cvPublications.length > 0 && (
+        <div class="info-card" style="margin-top: 16px;">
+          <h3>Publications</h3>
+          <p>{cvPublications.join(", ")}</p>
+        </div>
+      )}
+    </div>
+
+    <div class="contact-block" style="margin-bottom: 56px;">
+      <h2 class="contact-title" style="font-size: 36px;">Envie d'en discuter ? Parlons data.</h2>
+      <div class="contact-actions">
+        <a class="btn btn-on-color" href={site.cvFile} download>Télécharger le PDF</a>
+        <a class="btn btn-outline-on-color" href="/#contact">Me contacter</a>
+      </div>
+    </div>
+  </main>
+  <Footer />
+</Base>

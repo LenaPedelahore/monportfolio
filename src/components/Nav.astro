@@ -1,0 +1,33 @@
+---
+// Navigation, reprise à l'identique sur toutes les pages.
+import Logo from "./Logo.astro";
+import { site } from "../data/site";
+---
+
+<header class="nav">
+  <div class="container nav-inner">
+    <Logo />
+    <div class="nav-right">
+      <nav class="nav-links" aria-label="Navigation principale">
+        {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      </nav>
+      <a class="btn btn-primary" href={site.cvFile} download>
+        Mon CV ↓
+      </a>
+      <button
+        type="button"
+        class="nav-toggle"
+        aria-label="Ouvrir le menu"
+        aria-expanded="false"
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M3 6h18M3 12h18M3 18h18" stroke-linecap="round" />
+        </svg>
+      </button>
+    </div>
+  </div>
+  <nav class="nav-mobile-panel" aria-label="Navigation mobile">
+    {site.nav.map((item) => <a href={item.href}>{item.label}</a>)}
+    <a href={site.cvFile} download>Mon CV ↓</a>
+  </nav>
+</header>

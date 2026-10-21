@@ -1,0 +1,55 @@
+---
+// Accroche de l'accueil. Le mot qui change est géré par
+// src/scripts/site.ts (fonction setupWordRotator).
+import { hero, profile } from "../data/site";
+---
+
+<section class="hero">
+  <div class="blobs" aria-hidden="true"></div>
+  <div class="container hero-grid">
+    <div>
+      <p class="hero-pill">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        {hero.pill}
+      </p>
+
+      <h1 class="hero-title">
+        {hero.titleStart}{" "}
+        <span class="word-rotator">
+          <span class="word-rotator-live" aria-hidden="true">
+            {hero.words.map((word, i) => (
+              <span data-word class:list={[{ "is-active": i === 0 }]}>
+                {word}
+              </span>
+            ))}
+          </span>
+          <span class="sr-only">{hero.words[0]}</span>
+        </span>.
+      </h1>
+
+      <p class="hero-sub">{hero.subtitle}</p>
+
+      <div class="hero-actions">
+        <a class="btn btn-primary" href={hero.ctaPrimary.href}>{hero.ctaPrimary.label}</a>
+        <a class="btn btn-secondary" href={hero.ctaSecondary.href}>{hero.ctaSecondary.label}</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="hero-card">
+        <span class="hero-card-label">{hero.card.label}</span>
+        <h2 class="hero-card-title">{hero.card.title}</h2>
+        <div class="hero-bars" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span>
+        </div>
+        <div class="hero-card-tags">
+          {hero.card.tags.map((tag) => <span class="tag">{tag}</span>)}
+        </div>
+        <div class="hero-photo">
+          <img src={profile.photo} alt="" />
+        </div>
+        <span class="hero-ring" aria-hidden="true"></span>
+      </div>
+    </div>
+  </div>
+</section>

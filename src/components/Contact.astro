@@ -1,0 +1,25 @@
+---
+// Section Contact. Pas de formulaire : email et LinkedIn seulement.
+import { contact, site } from "../data/site";
+---
+
+<section id="contact" class="section reveal">
+  <div class="container">
+    <div class="contact-block">
+      <p class="eyebrow">
+        <span class="badge-number">05</span>
+        <span class="badge-label">Contact</span>
+      </p>
+      <h2 class="contact-title">{contact.title}</h2>
+      <p class="contact-lead">{contact.lead}</p>
+      <div class="contact-actions">
+        <a class="btn btn-on-color" href={`mailto:${site.email}`}>
+          Écrire à Lena{site.email.startsWith("[") ? ` ${site.email}` : ""}
+        </a>
+        <a class="btn btn-outline-on-color" href={site.linkedin} target="_blank" rel="noopener noreferrer">
+          LinkedIn
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
